@@ -5,42 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MSS</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- FontAwesome -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<!-- FontAwesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-  <!-- Google Fonts / Custom Fonts -->
-  <link href="fonts/css/all.min.css" rel="stylesheet">
-  <link href="fonts/webfonts/*" rel="stylesheet">
+<!-- AOS Animations -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Mobile Menu Toggle
-      const menuToggle = document.getElementById('menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-  
-      if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-          const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-          menuToggle.setAttribute('aria-expanded', !isExpanded);
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
+<!-- Google Font -->
+<link href="fonts/css/all.min.css" rel="stylesheet">
+<link href="fonts/webfonts/*" rel="stylesheet">
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize AOS
+    AOS.init({
+      once: true,
+      duration: 1000,
+      offset: 100,
     });
-  </script> 
-</head>
+  
+    // Hamburger toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+  
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  
+    // Dark mode toggles
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+  
+    const desktopBtn = document.getElementById('dark-toggle-desktop');
+    const mobileBtn = document.getElementById('dark-toggle-mobile');
+  
+    if (desktopBtn) desktopBtn.addEventListener('click', toggleDarkMode);
+    if (mobileBtn) mobileBtn.addEventListener('click', toggleDarkMode);
+  });
+  </script>
+  
 
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100">
 
 <!-- Navbar -->
 <header class="fixed top-0 left-0 w-full bg-white/90 dark:bg-gray-800/90 shadow z-50 backdrop-blur" style="height: 64px;">
   <nav class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center h-full">
+    <!--<h1 class="text-xl font-bold">My Story</h1>-->
+
     <!-- Desktop Menu -->
     <ul class="hidden md:flex gap-6 text-sm font-medium">
       <li><a href="#hero" class="hover:text-blue-500 dark:hover:text-blue-400">Home</a></li>
-      <li><a href="#contact" class="hover:text-blue-500 dark:hover:text-blue-400">Contact</a></li>
+       <li><a href="#contact" class="hover:text-blue-500 dark:hover:text-blue-400">Contact</a></li>
+      <li>
+        <button id="dark-toggle-desktop" class="transition text-lg hover:text-yellow-400" title="Toggle dark mode" aria-label="Toggle dark mode">
+          <i class="fas fa-adjust"></i>
+        </button>
+      </li>
     </ul>
 
     <!-- Mobile Hamburger -->
@@ -59,7 +88,13 @@
   <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg w-full absolute top-16 left-0 z-40">
     <ul class="flex flex-col px-4 py-4 gap-4 text-sm font-medium">
       <li><a href="#hero" class="block hover:text-blue-500 dark:hover:text-blue-400" onclick="document.getElementById('menu-toggle').click()">Home</a></li>
+      <li><a href="#story-1" class="block hover:text-blue-500 dark:hover:text-blue-400" onclick="document.getElementById('menu-toggle').click()">Story</a></li>
       <li><a href="#contact" class="block hover:text-blue-500 dark:hover:text-blue-400" onclick="document.getElementById('menu-toggle').click()">Contact</a></li>
+      <li>
+        <button id="dark-toggle-mobile" class="transition text-lg hover:text-yellow-400 w-full text-left" title="Toggle dark mode" aria-label="Toggle dark mode">
+          <i class="fas fa-adjust"></i> Toggle Dark Mode
+        </button>
+      </li>
     </ul>
   </div>
 </header>
@@ -122,7 +157,16 @@
         <p>If you're curious about the path I've walked — scroll down and take a look.</p>
       </div>
     </div>
-    </section>
+
+ <!--   <a
+      href="#story-2"
+      class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 text-gray-700 dark:text-gray-300 hover:text-blue-500 transition"
+      aria-label="Scroll down to Story section"
+    >
+      <i class="fas fa-chevron-down text-3xl animate-bounce"></i>
+    </a>
+  -->
+  </section>
 
   <section id="story" class="relative bg-white dark:bg-gray-900 py-20 px-4 sm:px-6 lg:px-8 scroll-mt-20">
     <div class="max-w-4xl mx-auto">
@@ -134,9 +178,9 @@
       <div class="space-y-6">
   
         <!-- Chapter 1 -->
-        <details class="group border-l-4 border-blue-500 pl-6 transition-all">
+        <details class="group border-l-4 border-blue-500 pl-6 transition-all" open data-aos="fade-up">
           <summary class="cursor-pointer text-2xl font-semibold text-blue-600 flex items-center justify-between">
-            <span>Chapter 1: Just landed on 🌍 → A 90's Kid </span>
+            <span>Just landed on 🌍 → A 90's Kid </span>
             <span class="text-gray-400 group-open:rotate-180 transition-transform">
               <i class="fas fa-chevron-down"></i>
             </span>
@@ -176,27 +220,27 @@
                 Yah, that's me — a 2-year-old. 😅
               </figcaption>
             </figure>      
-          </div>
+            </div>
         </details>
   
         <!-- Chapter 2 -->
-        <details class="group border-l-4 border-blue-500 pl-6 transition-all">
-            <summary class="cursor-pointer text-2xl font-semibold text-blue-600 flex items-center justify-between">
-              <span>Chapter 2: 🎓 Teenage → College Life 🏃‍♂️ </span>
-              <span class="text-gray-400 group-open:rotate-180 transition-transform">
-                <i class="fas fa-chevron-down"></i>
-              </span>
-            </summary>
-    
-            <div class="mt-4 space-y-4 text-gray-700 dark:text-gray-300 text-base sm:text-lg">
-              <div class="flex gap-4 mb-4 flex-wrap">
-                <figure class="text-center">
-                  <img src="gifs/edsonstorm-kick-buttowski.gif" class="w-80 rounded-lg object-cover shadow mx-auto" alt="Childhood photo">
-                  <figcaption class="mt-2 text-sm text-gray-500 dark:text-gray-400 italic">
-                    Kick Buttowski 😎 — My favorite cartoon growing up!
-                  </figcaption>
-                </figure>              
-              </div>
+        <details class="group border-l-4 border-blue-500 pl-6 transition-all" data-aos="fade-up">
+          <summary class="cursor-pointer text-2xl font-semibold text-blue-600 flex items-center justify-between">
+            <span>🎓 Teenage → College Life 🏃‍♂️</span>
+            <span class="text-gray-400 group-open:rotate-180 transition-transform">
+              <i class="fas fa-chevron-down"></i>
+            </span>
+          </summary>
+  
+          <div class="mt-4 space-y-4 text-gray-700 dark:text-gray-300 text-base sm:text-lg">
+            <div class="flex gap-4 mb-4 flex-wrap">
+              <figure class="text-center">
+                <img src="gifs/edsonstorm-kick-buttowski.gif" class="w-80 rounded-lg object-cover shadow mx-auto" alt="Childhood photo">
+                <figcaption class="mt-2 text-sm text-gray-500 dark:text-gray-400 italic">
+                  Kick Buttowski 😎 — My favorite cartoon growing up!
+                </figcaption>
+              </figure>              
+            </div>
                 <p>Wokay... where to start...</p>
                 <p>While most of my friends followed what their parents and relatives told them — joining intermediate — I chose a different path. I enrolled in a Diploma in Information Technology (Polytechnic*) just to stay close to my dream: working in IT.</p>
                 <p>Of course, I lost many friends in that transition. I felt like an immigrant in my own world.</p>
@@ -220,131 +264,200 @@
                 <p>I followed my heart, but I couldn’t take that anymore. I quit photography.</p>
                 <p>I tried alternatives. Learned Photoshop, After Effects, and Premiere Pro — editing photos and videos. But something felt off. I wasn’t happy or comfortable.</p>
                 <p>Three years of college passed. And with that, I was given a break — a chance to rethink who I really wanted to be.</p>
-  
-              <figure class="mt-6 w-full max-w-md mx-auto">
-                <img src="images/my/child.jpeg" class="rounded-xl shadow-lg w-full" alt="Old school tech memories" />
-                <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400 italic">
-                  Yah, that's me — a 2-year-old. 😅
-                </figcaption>
-              </figure>      
+                <figure class="mt-6 w-full max-w-md mx-auto">
+                  <img src="images/my/dc.jpeg" class="rounded-xl shadow-lg w-full" alt="Old school tech memories" />
+                  <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400 italic">
+                    Hmm, this was me in 2013 during my Diploma collage time.
+                  </figcaption>
+                </figure>
+                
             </div>
           </details>
-        
-          <!-- Chapter 3 -->
-        <details class="group border-l-4 border-blue-500 pl-6 transition-all">
-            <summary class="cursor-pointer text-2xl font-semibold text-blue-600 flex items-center justify-between">
-              <span>Chapter 3: Graduation → Beginning of the Battle 🚀 </span>
-              <span class="text-gray-400 group-open:rotate-180 transition-transform">
-                <i class="fas fa-chevron-down"></i>
-              </span>
-            </summary>
-    
-            <div class="mt-4 space-y-4 text-gray-700 dark:text-gray-300 text-base sm:text-lg">
-              <div class="flex gap-4 mb-4 flex-wrap">
-                <figure class="text-center">
-                  <img src="gifs/edsonstorm-kick-buttowski.gif" class="w-80 rounded-lg object-cover shadow mx-auto" alt="Childhood photo">
-                  <figcaption class="mt-2 text-sm text-gray-500 dark:text-gray-400 italic">
-                    Kick Buttowski 😎 — My favorite cartoon growing up!
-                  </figcaption>
-                </figure>              
-              </div>
-              <h2>Muziccc start!!!</h2>
+ 
+        <!-- Chapter 3 
+        <details class="group border-l-4 border-blue-500 pl-6 transition-all" data-aos="fade-up">
+          <summary class="cursor-pointer text-2xl font-semibold text-blue-600 flex items-center justify-between">
+            <span>🚀 Career Launch</span>
+            <span class="text-gray-400 group-open:rotate-180 transition-transform">
+              <i class="fas fa-chevron-down"></i>
+            </span>
+          </summary>
+          <div class="mt-4 space-y-4 text-gray-700 dark:text-gray-300 text-base sm:text-lg"></div>
+            <div class="flex gap-4 mb-4 flex-wrap">
+              <img src="gifs/mr.gif" class="w-80 rounded-lg object-cover shadow" alt="College photo">
+            </div>
+          
+              <h2>Graduation &mdash; Beginning of the Battle 🚀</h2>
+
               <p>Hayaah! 😅 Let me put it this way!</p>
+
               <p>I was a weirdo when I entered because I wasn’t a regular guy. I mean, I came from a Diploma background, so I didn’t have to study 1st year &mdash; I was pushed directly into 2nd year. I was called "LE" (Lateral Entry) 🥲. I know it’s a weird tag, but I carried this name throughout my graduation.</p>
+
               <p>On the joining day, everyone in the administrative office in our department was staring at me. I felt awkward. Even my HOD was shocked to see an LE in their department &mdash; because most of the LEs opt for CSE (Computer Science) over IT (Information Technology). The difference was hardly one subject per semester. But the reason I ended up in IT was not in my hands &mdash; it was pure destiny.</p>
+
               <p>I thank and hate destiny for this 😶.</p>
+
               <p>Fast forward to my first day of college &mdash; I was busy completing my formalities. Our HOD called me and said there was an election being conducted for CR (Class Representative). Only two guys were competing. He said this was the right time to introduce myself to the entire class in one speech and encouraged me to participate.</p>
+
               <p>I was very scared and shy. I don’t know why, but I wrote my nomination letter and gave it to the HOD &mdash; just to look good.</p>
+
               <p>Here comes the most important part. The elections were to be held in the 2nd half, and the candidates had to deliver a speech 😅. Literally!!! I was shivering while the other candidates looked very confident and well-prepared. One of them even whispered in my ear:<br>
               <strong>“You made a mistake by participating in an election on your first day. This will make you a bad guy to some people, including me.”</strong> 😬</p>
+
               <p>I had never spoken a word before in front of a crowd that size &mdash; 100+ people including classmates, teaching, and non-teaching staff. I nervously introduced myself:</p>
+
               <blockquote>“My name is Ravi.”</blockquote>
+
               <p>Someone from the crowd shouted, “Ithe enti?” (So what?). I smiled and continued:</p>
+
               <blockquote>“I won’t promise you anything. I’m participating only because of the opportunity given by our HOD. I don’t know you guys, and you don’t know me. I’m not even expecting a single vote &mdash; I wouldn’t vote for myself either!” 🤣</blockquote>
+
               <p>Some laughed. I gained a little confidence and continued, explaining my family background, my passion for tech, and a mini project I did in my Diploma.</p>
+
               <p>I concluded:</p>
+
               <blockquote>“You don’t have to vote for me &mdash; just vote for the person you believe is right in your view. And don’t misuse this vote like we do in real elections by looking at caste, power, etc.”</blockquote>
+
               <p>Some staff clapped. No classmates responded. I was genuinely not expecting even a single vote &mdash; I had voted for the other guy (remember the one who threatened me?) 😎 I liked his confidence.</p>
+
               <p>So, what do you think the result was?</p>
+
               <p>You won’t believe it &mdash; <strong>I won</strong>! 🤣<br>
               I didn’t believe it myself and went to the counting room. My HOD handed me a big bunch of ballots and told me to count. I literally counted and said, “51” (out of 60). The confident guy got 2 votes (one was mine 😅), the other candidate got 5, and 2 were disqualified (bad handwriting 🤣).</p>
+
               <p>During the announcement, I was still in shock. HOD said,</p>
+
               <blockquote>“I’ve never seen anyone win on their first day. Don’t ruin your reputation.”</blockquote>
+
               <p>I thanked him and walked away.</p>
+
               <p>The next day, everyone congratulated me. I remained the CR for the next 3 years. This was an achievement I never chased &mdash; I was just being genuine. I never betrayed anyone or took sides. I just followed what felt right. <em>Maybe it was just my view.</em></p>
+
+              <hr>
+
               <p>Okay, let’s keep that aside for now.</p>
+
               <p>I gradually became a good student during graduation because I realized technology was always evolving. I never wrote notes but always preferred textbooks over classroom material and used the PPTs given by staff. I started experimenting.</p>
+
               <p>Here’s an example:<br>
               While everyone else was memorizing full 250-line Java programs (e.g., inheritance), I thought &mdash;</p>
+
               <blockquote>“Why memorize all this?”</blockquote>
+
               <p>So I wrote a minimal version of the same program &mdash; around 20 lines &mdash; with the exact functionality.</p>
+
               <p>A staff member refused to approve it and dragged me to the HOD’s cabin. The HOD said:</p>
+
               <blockquote>“You have to follow the textbook and staff material.”</blockquote>
+
               <p>I replied:</p>
+
               <blockquote>“I’ve incorporated the same concept using simplified code.”</blockquote>
+
               <p>The HOD said,</p>
+
               <blockquote>“If it gives the correct result, I’ll approve it.”</blockquote>
+
               <p>I executed it using the values he provided. It worked. ✅<br>
               He permitted me to use my own programs. This felt like a breakthrough. I rewrote every program in my own way &mdash; minimal, functional, and efficient.</p>
+
               <p>While my classmates’ records were over 300 pages long, mine was barely 40 🤣.<br>
               (I even kept it at home until my mom mistakenly sold it off as scrap 🤣.)</p>
+
+              <hr>
+
               <p>Things were going fine &mdash; and then the <strong>geek bug</strong> really bit me. While most of my classmates were preparing for software careers, I chose a different path.</p>
+
               <p>One summer night, I was browsing torrents and came across a blog post. A guy wrote:</p>
+
               <blockquote>“If you want deep IT knowledge, search for ‘CBT Nuggets’. Their courses are awesome.”</blockquote>
+
               <p>He even shared download links. I remember it was <em>Pirate Bay</em>. I downloaded <strong>CCNA R&amp;S by Jeremy Cioara</strong> from CBT Nuggets.</p>
+
               <p>OMG, what a guy. 🙌<br>
               Hands down, the knowledge he gave me and the impact he had on me was out of this world. I became a huge fan.</p>
+
               <p>It took me 2–3 months to complete his course, and my thought process completely changed. I wanted to learn networking more than boring programming (just my opinion back then). I went all in and even completed CCNA R&amp;S certification in 2017.</p>
+
               <p>I believed I’d pursue a career as a network engineer or analyst. Deep inside, I knew this was my stronghold.</p>
+
               <p>I used to tell myself every day:</p>
+
               <blockquote><strong>“I don’t want a desk job. I want to get my hands dirty.”</strong><br>
               That was Jeremy’s line — and it stuck with me. 🧠</blockquote>
+
+              <hr>
+
               <p>Then came the academic project. What do you think? Did I go the usual route — buy a project for ₹5–10K and submit it?</p>
+
               <p>🤣 I’m gonna disappoint you again. I decided to do my own project.</p>
+
               <p>I had an idea. I always believed that a project should help someone or do some good. Here’s what I observed:<br>
               In our labs, we constantly faced network lag, latency, and congestion. I figured &mdash; they just didn’t know how to manage it properly.</p>
+
               <p>After completing my CCNA and starting CCNP prep, I proposed redesigning the college network infrastructure. My HOD was surprised:</p>
+
               <blockquote>“Networking project? Can you pull this off? If not, you can back out later.”</blockquote>
+
               <p>I said:</p>
+
               <blockquote>“I can do it.”</blockquote>
+
               <p>He replied:</p>
+
               <blockquote>“Okay, I’ll be your guide. Replicate the entire design using any simulation tool.”</blockquote>
+
               <p>I chose <strong>Cisco Packet Tracer</strong>. I conducted a site survey, replicated the existing setup, redesigned it completely, and upgraded the network from 100Mbps to 1000Mbps (1 Gigabit).</p>
+
               <p>As suggested by my HOD, I presented the simulation. He really liked it and asked me to present to the Vice Principal. He liked it too.<br>
               Next stop: our Chairman and college founder.</p>
+
               <p>He listened carefully and asked:</p>
+
               <blockquote>“How much will it cost to implement?”</blockquote>
+
               <p>I gave him a number. He was okay with it. He congratulated me and asked for a full project document. I completed it in just a couple of days.</p>
+
               <p>Know what?<br>
               <strong>I completed the 6-month project in just 30 days.</strong> 😅</p>
+
               <p>Everyone looked at me like I was some kind of alien. 👽<br>
               That’s when I started believing in the “Evil Eye” concept. I had never believed in it before &mdash; but after what followed, I do now.</p>
+
               <p>It's okay. I know what you’re thinking: “Was I superstitious?”</p>
+
               <p>Nope. But I faced so many personal problems at that time &mdash; more than ever before.</p>
+
               <p>It was one of the lowest phases of my life.</p>
+
               <p>We all have those personal struggles we don’t talk about, right?</p>
+
               <p>Yes, I went through that &mdash; and I believed it was a butterfly effect.</p>
+
               <p>One bad thing happened… and that led to a chain of bad things, one after another, for years to come.</p>
+
+              <hr>
+
               <p>I know this was long, but I just wanted to say it all without cutting the flow midway. ❤️</p>
-  
               <figure class="mt-6 w-full max-w-md mx-auto">
-                <img src="images/my/child.jpeg" class="rounded-xl shadow-lg w-full" alt="Old school tech memories" />
+                <img src="images/my/dc.jpeg" class="rounded-xl shadow-lg w-full" alt="Old school tech memories" />
                 <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400 italic">
-                  Yah, that's me — a 2-year-old. 😅
+                  Hmm, this was me in 2013 during my Diploma collage time.
                 </figcaption>
-              </figure>      
-            </div>
-          </details>
+              </figure>
+          </div>
+        </details>
   
       </div>
     </div>
+-->  
+    <!-- Back to Top Button -->
+    <a href="#top" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg z-50 transition-all" title="Back to Top">
+      <i class="fas fa-arrow-up"></i>
+    </a>
   </section>
   
-
-  <!-- Back to Top Button -->
-  <a href="#top" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg z-50 transition-all" title="Back to Top">
-    <i class="fas fa-arrow-up"></i>
-  </a>
+    
 </main>
 
 <!-- Contact Section -->
@@ -382,5 +495,24 @@
   </p>
 </footer>
 
+<script>
+  // Hamburger toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuToggle.addEventListener('click', () => {
+    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', !isExpanded);
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Dark mode toggles
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+  }
+
+  document.getElementById('dark-toggle-desktop').addEventListener('click', toggleDarkMode);
+  document.getElementById('dark-toggle-mobile').addEventListener('click', toggleDarkMode);
+</script>
 </body>
 </html>
